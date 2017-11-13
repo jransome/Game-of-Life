@@ -127,8 +127,11 @@ class Main extends React.Component {
 
   selectBox = (row, col) => {
     let gridCopy = Helpers.cloneArray(this.state.gridFull); // deep clone the array
+    let currentPopulation = this.state.population;
+    gridCopy[row][col] ? currentPopulation-- : currentPopulation++ // if alive, then decrement population counter and vice versa
     gridCopy[row][col] = !gridCopy[row][col]; // toggle box 'on/off'
     this.setState({
+      population: currentPopulation,
       gridFull: gridCopy
     })
   }
