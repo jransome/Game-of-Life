@@ -13,7 +13,7 @@ class Main extends React.Component {
     this.rows = 20;
 
     this.state = {
-      population: 360,
+      population: 0,
       seedBoxes: 360,
       generation: 0,
       gridFull: Array(this.rows).fill().map(()=> Array(this.cols).fill(false)) // create 2d array with each element as false
@@ -73,6 +73,7 @@ class Main extends React.Component {
   clear = () => {
     this.setState({
       generation: 0,
+      population:0,
       gridFull: Array(this.rows).fill().map(()=> Array(this.cols).fill(false)) // create 2d array with each element as false
     })
   }
@@ -88,14 +89,18 @@ class Main extends React.Component {
   }
 
   seed = () => {
+    let currentPopulation = this.state.population;
     let gridCopy = Helpers.cloneArray(this.state.gridFull); // deep clone the array
     for (let i = 0; i < this.state.seedBoxes; i++) {
       let x = Helpers.getRandomInt(0, this.rows - 1);
       let y = Helpers.getRandomInt(0, this.cols - 1);
-      gridCopy[x][y] = true;
+      if (gridCopy[x][y] === false) {
+        gridCopy[x][y] = true;
+        currentPopulation++;
+      }
     }
     this.setState({
-      population: this.state.seedBoxes,
+      population: currentPopulation,
       gridFull: gridCopy
     })
   }
