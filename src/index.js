@@ -101,9 +101,9 @@ class Main extends React.Component {
     this.speed = 200;
     this.cols = 30;
     this.rows = 20;
-    this.seedBoxes = Math.round((this.cols * this.rows) * 0.6);
 
     this.state = {
+      seedBoxes: 360,
       generation: 0,
       gridFull: Array(this.rows).fill().map(()=> Array(this.cols).fill(false)) // create 2d array with each element as false
     }
@@ -167,8 +167,9 @@ class Main extends React.Component {
   }
 
   seed = () => {
+    console.log(this.state.seedBoxes)
     let gridCopy = Helpers.cloneArray(this.state.gridFull); // deep clone the array
-    for (let i = 0; i < this.seedBoxes; i++) {
+    for (let i = 0; i < this.state.seedBoxes; i++) {
       let x = Helpers.getRandomInt(0, this.rows - 1);
       let y = Helpers.getRandomInt(0, this.cols - 1);
       gridCopy[x][y] = true;
@@ -198,6 +199,9 @@ class Main extends React.Component {
         this.rows = 20;
     }
     this.clear();
+    this.setState({
+      seedBoxes: Math.round((this.cols * this.rows) * 0.6)
+    })
   }
 
   selectBox = (row, col) => {
