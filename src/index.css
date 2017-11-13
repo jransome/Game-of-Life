@@ -1,6 +1,6 @@
 body {
   /*can't reference files outside the src folder - restriction of create-react-app. Can get around this by 'ejecting'*/
-  background-image: url(background.jpg)
+  background-image: url(images/background.jpg)
 }
 
 .box {
