@@ -5,7 +5,6 @@ import './index.css';
 import { ButtonToolbar, MenuItem, DropdownButton } from 'react-bootstrap';
 
 class Box extends React.Component{
-
   selectBox=() => {
     this.props.selectBox(this.props.row, this.props.col);
   }
@@ -23,7 +22,7 @@ class Box extends React.Component{
 
 class Grid extends React.Component{
   render(){
-    const width = this.props.cols * 16;
+    const width = this.props.cols * 14;
     var rowsArr = [];
 
     var boxClass = "";
@@ -54,8 +53,9 @@ class Grid extends React.Component{
 }
 
 class Buttons extends React.Component {
-  handleSelect = (evt) => {
-    this.props.gridSize(evt)
+
+  handleSizeSelect = (evt) => {
+    this.props.gridSize(evt);
   }
 
   render(){
@@ -83,7 +83,7 @@ class Buttons extends React.Component {
           <DropdownButton
             title="Grid Size"
             id="size-menu"
-            OnSelect={this.handleSelect}
+            onSelect={this.handleSizeSelect}
           >
             <MenuItem eventKey="1">30 x 20</MenuItem>
             <MenuItem eventKey="2">60 x 40</MenuItem>
@@ -98,10 +98,10 @@ class Buttons extends React.Component {
 class Main extends React.Component {
   constructor(){
     super();
-    this.speed = 100;
-    this.rows = 50;
-    this.cols = 80;
-    this.seedBoxes = 400;
+    this.speed = 200;
+    this.cols = 30;
+    this.rows = 20;
+    this.seedBoxes = Math.round((this.cols * this.rows) * 0.6);
 
     this.state = {
       generation: 0,
@@ -112,11 +112,6 @@ class Main extends React.Component {
   componentDidMount(){
     this.seed();
     this.playButton();
-  }
-
-  playButton = () => {
-    clearInterval(this.intervalId)
-    this.intervalId = setInterval(this.play, this.speed);
   }
 
   play = () => {
@@ -145,16 +140,30 @@ class Main extends React.Component {
 		});
   }
 
+  playButton = () => {
+    clearInterval(this.intervalId)
+    this.intervalId = setInterval(this.play, this.speed);
+  }
+
   pauseButton = () => {
     clearInterval(this.intervalId);
   }
 
-  selectBox = (row, col) => {
-    let gridCopy = Helpers.cloneArray(this.state.gridFull); // deep clone the array
-    gridCopy[row][col] = !gridCopy[row][col]; // toggle box 'on/off'
+  clear = () => {
     this.setState({
-      gridFull: gridCopy
+      generation: 0,
+      gridFull: Array(this.rows).fill().map(()=> Array(this.cols).fill(false)) // create 2d array with each element as false
     })
+  }
+
+  slow = () => {
+    this.speed = 750;
+    this.playButton();
+  }
+
+  fast = () => {
+    this.speed = 200;
+    this.playButton();
   }
 
   seed = () => {
@@ -169,10 +178,40 @@ class Main extends React.Component {
     })
   }
 
+  gridSize = (size) => {
+    console.log(size)
+    switch (size) {
+      case "1":
+        this.cols = 30;
+        this.rows = 20;
+        break;
+      case "2":
+        this.cols = 60;
+        this.rows = 40;
+        break;
+      case "3":
+        this.cols = 90;
+        this.rows = 60;
+        break;
+      default:
+        this.cols = 30;
+        this.rows = 20;
+    }
+    this.clear();
+  }
+
+  selectBox = (row, col) => {
+    let gridCopy = Helpers.cloneArray(this.state.gridFull); // deep clone the array
+    gridCopy[row][col] = !gridCopy[row][col]; // toggle box 'on/off'
+    this.setState({
+      gridFull: gridCopy
+    })
+  }
+
   render(){
     return(
       <div>
-        <h1>The Game of Life</h1>
+        <h1>Conway's Game of Life</h1>
         <Buttons
           playButton={this.playButton}
           pauseButton={this.pauseButton}
