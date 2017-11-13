@@ -13,6 +13,7 @@ class Main extends React.Component {
     this.rows = 20;
 
     this.state = {
+      population: 360,
       seedBoxes: 360,
       generation: 0,
       gridFull: Array(this.rows).fill().map(()=> Array(this.cols).fill(false)) // create 2d array with each element as false
@@ -27,6 +28,7 @@ class Main extends React.Component {
   play = () => {
     let g = this.state.gridFull;
     let gClone = Helpers.cloneArray(this.state.gridFull);
+    let currentPopulation = this.state.population;
 
     for (let i = 0; i < this.rows; i++) {
 		  for (let j = 0; j < this.cols; j++) {
@@ -39,12 +41,21 @@ class Main extends React.Component {
 		    if (i < this.rows - 1) if (g[i + 1][j]) count++;
 		    if (i < this.rows - 1 && j > 0) if (g[i + 1][j - 1]) count++;
 		    if (i < this.rows - 1 && this.cols - 1) if (g[i + 1][j + 1]) count++;
-		    if (g[i][j] && (count < 2 || count > 3)) gClone[i][j] = false;
-		    if (!g[i][j] && count === 3) gClone[i][j] = true;
+
+		    if (g[i][j] && (count < 2 || count > 3)) {
+          gClone[i][j] = false;
+          currentPopulation--;
+        }
+
+		    if (!g[i][j] && count === 3) {
+          gClone[i][j] = true;
+          currentPopulation++;
+        }
 		  }
 		}
 
 		this.setState({
+      population: currentPopulation,
 		  gridFull: gClone,
 		  generation: this.state.generation + 1
 		});
@@ -77,7 +88,6 @@ class Main extends React.Component {
   }
 
   seed = () => {
-    console.log(this.state.seedBoxes)
     let gridCopy = Helpers.cloneArray(this.state.gridFull); // deep clone the array
     for (let i = 0; i < this.state.seedBoxes; i++) {
       let x = Helpers.getRandomInt(0, this.rows - 1);
@@ -85,12 +95,12 @@ class Main extends React.Component {
       gridCopy[x][y] = true;
     }
     this.setState({
+      population: this.state.seedBoxes,
       gridFull: gridCopy
     })
   }
 
   gridSize = (size) => {
-    console.log(size)
     switch (size) {
       case "1":
         this.cols = 30;
@@ -110,6 +120,7 @@ class Main extends React.Component {
     }
     this.clear();
     this.setState({
+      population: 0,
       seedBoxes: Math.round((this.cols * this.rows) * 0.6)
     })
   }
@@ -141,7 +152,7 @@ class Main extends React.Component {
           cols={this.cols}
           selectBox={this.selectBox}
         />
-        <h2>Generations: {this.state.generation}</h2>
+        <h2>Generations: {this.state.generation}, Population: {this.state.population}</h2>
       </div>
     );
   }

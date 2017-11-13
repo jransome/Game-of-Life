@@ -6,7 +6,6 @@ export default class Grid extends React.Component{
     const width = this.props.cols * 14;
     var rowsArr = [];
 
-    var boxClass = "";
     for (let i = 0; i < this.props.rows; i++) {
       for (let j = 0; j < this.props.cols; j++) {
         let boxId = i + "_" + j;
