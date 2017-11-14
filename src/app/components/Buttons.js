@@ -2,7 +2,6 @@ import React from 'react';
 import { ButtonToolbar, MenuItem, DropdownButton } from 'react-bootstrap';
 
 export default class Buttons extends React.Component {
-
   handleSizeSelect = (evt) => {
     this.props.gridSize(evt);
   }

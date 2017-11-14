@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import Buttons from './components/Buttons.js'
-import Grid from './components/Grid.js'
+import React from 'react';
+import Buttons from './components/Buttons.js';
+import Grid from './components/Grid.js';
+import PopulationChart from './components/PopulationChart.js';
 import Helpers from '../lib/helpers.js';
 
 export default class App extends React.Component {
@@ -153,12 +154,16 @@ export default class App extends React.Component {
           gridSize={this.gridSize}
         />
         <Grid
-          gridFull = {this.state.gridFull}
+          gridFull={this.state.gridFull}
           rows={this.rows}
           cols={this.cols}
           selectBox={this.selectBox}
         />
         <h2>Generations: {this.state.generation}, Population: {this.state.population}</h2>
+        <PopulationChart
+          generation={this.state.generation}
+          population={this.state.population}
+        />
       </div>
     );
   }
