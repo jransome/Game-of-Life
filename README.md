@@ -1,7 +1,8 @@
 # Conway's Game of Life
 
-Using React JS, CSS and HTML. Try clicking on the grid to add squares when the simulation is paused!
+Using React JS, CSS and HTML. Try clicking on the grid to add squares when the simulation is paused! A dynamic chart records population over time.
 
+![screenshot](/images/readme_screenshot.jpg)
 ## Installation
 
 Requires Node (v8.6.0 recommended). Type the following into your terminal to install:
@@ -14,5 +15,3 @@ $ npm start
 ```
 
 Then navigate to http://localhost:8080 in your browser.
-
-![screenshot](/images/readme_screenshot.jpg)
