@@ -6,6 +6,7 @@ export default class PopulationChart extends React.Component{
     super(props);
     this.staticChartOpts = {
       responsive: true,
+      maintainAspectRatio: true,
       legend: {
         labels:{
           fontSize: 25,
@@ -16,7 +17,8 @@ export default class PopulationChart extends React.Component{
         xAxes: [{
             ticks: {
               fontSize: 16,
-              fontColor: "rgba(255, 255, 255, 1)"
+              fontColor: "rgba(255, 255, 255, 1)",
+              stepSize: 0.1,
             },
             scaleLabel: {
               display: true,
@@ -31,7 +33,7 @@ export default class PopulationChart extends React.Component{
         yAxes: [{
             ticks: {
               fontSize: 14,
-              fontColor: "rgba(255, 255, 255, 1)"
+              fontColor: "rgba(255, 255, 255, 1)",
             },
             scaleLabel: {
               display: true,
@@ -89,6 +91,8 @@ export default class PopulationChart extends React.Component{
       <div className="population-chart">
       <Line
         data={this.state.chartData}
+        width={800}
+        height={550}
         options={this.staticChartOpts}
       />
       </div>

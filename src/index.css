@@ -1,6 +1,6 @@
 body {
-  /*can't reference files outside the src folder - restriction of create-react-app. Can get around this by 'ejecting'*/
-  background-image: url(images/background.jpg)
+  background-image: url(images/background.jpg);
+  background-size: cover;
 }
 
 .box {
@@ -30,17 +30,26 @@ body {
   margin-top: 10px;
 }
 
+.game-output {
+  margin: 50px;
+  flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .grid {
   width: 150px;
   line-height: 0;
-  margin: auto;
+  display: inline-block;
+  margin: 20px;
   box-shadow: 0px 0px 20px blue;
-  margin-top: 20px;
 }
 
 .population-chart {
-  margin: auto;
-  width: 50%;
+  display: inline-block;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 h1, h2, h3, h4 {

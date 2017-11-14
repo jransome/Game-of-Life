@@ -153,17 +153,19 @@ export default class App extends React.Component {
           seed={this.seed}
           gridSize={this.gridSize}
         />
-        <Grid
-          gridFull={this.state.gridFull}
-          rows={this.rows}
-          cols={this.cols}
-          selectBox={this.selectBox}
-        />
-        <h2>Generations: {this.state.generation}, Population: {this.state.population}</h2>
-        <PopulationChart
-          generation={this.state.generation}
-          population={this.state.population}
-        />
+        <h2>Generation: {this.state.generation}, Population: {this.state.population}</h2>
+        <div className="game-output">
+          <Grid
+            gridFull={this.state.gridFull}
+            rows={this.rows}
+            cols={this.cols}
+            selectBox={this.selectBox}
+          />
+          <PopulationChart
+            generation={this.state.generation}
+            population={this.state.population}
+          />
+        </div>
       </div>
     );
   }
