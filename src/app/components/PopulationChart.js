@@ -89,12 +89,12 @@ export default class PopulationChart extends React.Component{
   render(){
     return(
       <div className="population-chart">
-      <Line
-        data={this.state.chartData}
-        width={800}
-        height={550}
-        options={this.staticChartOpts}
-      />
+        <Line
+          data={this.state.chartData}
+          width={800}
+          height={550}
+          options={this.staticChartOpts}
+        />
       </div>
     )
   }
