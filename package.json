@@ -1,6 +1,7 @@
 {
   "name": "game-of-life",
   "version": "0.1.0",
+  "homepage": "https://jransome.github.io/Game-of-Life",
   "private": true,
   "dependencies": {
     "chart.js": "^2.7.1",
@@ -12,8 +13,15 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "predeploy" : "npm run build",
+    "deploy" : "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.1.1",
+    "install": "^0.13.0",
+    "npm": "^10.8.3"
   }
 }
